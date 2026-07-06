@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Display</title>
+
+    <!-- Your item array -->
+    <script src="public/js/item-list.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .main-container {
+            width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 38px;
+        }
+
+        select {
+            width: 260px;
+            padding: 8px;
+            font-size: 18px;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+
+        .prop-row {
+            display: flex;
+            margin: 14px 0;
+            font-size: 22px;
+        }
+
+        .prop-name {
+            width: 220px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <h2>Item Display</h2>
+
+    <select id="item-list">
+    </select>
+
+    <hr>
+
+    <div class="prop-row">
+        <div class="prop-name">ID</div>
+        <div id="item-id"></div>
+    </div>
+
+    <div class="prop-row">
+        <div class="prop-name">Name</div>
+        <div id="item-name"></div>
+    </div>
+
+    <div class="prop-row">
+        <div class="prop-name">Category</div>
+        <div id="item-category"></div>
+    </div>
+
+    <div class="prop-row">
+        <div class="prop-name">Inventory Amt.</div>
+        <div id="item-inventory"></div>
+    </div>
+
+    <div class="prop-row">
+        <div class="prop-name">List price</div>
+        <div id="item-price"></div>
+    </div>
+
+</div>
+
+<script>
+const select = document.getElementById("item-list");
+
+// Create empty option (default)
+const defaultOption = document.createElement("option");
+defaultOption.value = "";
+defaultOption.textContent = "";
+select.appendChild(defaultOption);
+
+// Add items from array
+items.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = item.name;
+    select.appendChild(option);
+});
+
+// No default selected
+select.selectedIndex = 0;
+
+// Clear all displayed data
+function clearData() {
+    document.getElementById("item-id").textContent = "";
+    document.getElementById("item-name").textContent = "";
+    document.getElementById("item-category").textContent = "";
+    document.getElementById("item-inventory").textContent = "";
+    document.getElementById("item-price").textContent = "";
+}
+
+// Start with empty data
+clearData();
+
+// Display item when selected
+select.addEventListener("change", function () {
+
+    if (this.value === "") {
+        clearData();
+        return;
+    }
+
+    const selectedItem = items.find(item => item.id == this.value);
+
+    document.getElementById("item-id").textContent = selectedItem.id;
+    document.getElementById("item-name").textContent = selectedItem.name;
+    document.getElementById("item-category").textContent = selectedItem.category;
+    document.getElementById("item-inventory").textContent = selectedItem.inventory;
+    document.getElementById("item-price").textContent = selectedItem.price;
+});
+</script>
+
+</body>
+</html>
